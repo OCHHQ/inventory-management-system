@@ -1,0 +1,68 @@
+============================================================
+INVENTORY STATUS REPORT
+Generated: 2026-02-15 09:34:47
+============================================================
+
+CASHIER ITEMS
+------------------------------------------------------------
+  Airforce................................ #@52 pic
+  Marker.................................. 15 pic
+  Biro.................................... 8 pic
+  Suspect-n-file.......................... 17 pic
+  Stamp................................... 9 pic
+  A4 Paper................................ 20 PAC
+  Cellotape............................... 55 pic
+  Clip/Banos.............................. 15 pic
+  Push Pin................................ 12 & 3 pic
+  Scissors................................ 4 pic
+  Stapler Pin............................. 2 pic
+  Paper Clips............................. 1 #13 pic
+  Whiteboard Eraser....................... 5 pic
+  Highlighter............................. 12 pic
+  Highlighter............................. 12 pic
+  Highlighter............................. 12 pic
+
+CLEANING ITEMS
+------------------------------------------------------------
+  Coffee.................................. 40 units
+  Handkerchief............................ 17 pic
+  Window Cleaner.......................... 1 bottle
+  Broom................................... 17+5 pic
+  Dustbin/Waste Bin....................... 11+8+4 pic
+  Kitchen Broom........................... 16 pic
+  Mopper.................................. 5 pic
+  Vim..................................... 6 bottles
+  Hand Towel.............................. 4 pieces
+  Klin Detergent.......................... 3 bottles
+  Mortein Killer.......................... 35 bottles
+  Mr Shine................................ 25 bottles
+  Skill Air Freshener..................... 25 bottles
+  Fabuloso Cleaning/Mopping............... 6 bottles
+  Sponge.................................. 12 pic
+  Toilet Brush............................ 3 pic
+  Harpic.................................. 2.4 bottles
+  Morning Fresh........................... 13 bottles
+  Floor Polish............................ 3 bottles
+  Floor Polish............................ 3 bottles
+  Jik..................................... 7 bottles
+  Big HandTissue.......................... 89 pieces
+  Tissue Toilet paper..................... 24 pieces
+  Bucket.................................. 7 pieces
+  Dust bin Leather........................ 20 pieces
+  Jik..................................... 7 bottles
+  Big HandTissue.......................... 89 pieces
+  Tissue Toilet paper..................... 24 pieces
+  Bucket.................................. 7 pieces
+  Dust bin Leather........................ 20 pieces
+
+============================================================
+⚠️  ITEMS REQUIRING REORDER
+============================================================
+  [Cashier Items] Biro: 8 (Min: 10)
+  [Cashier Items] Stapler Pin: 2 (Min: 3)
+  [Cashier Items] Paper Clips: 1 #13 (Min: 5)
+  [Cleaning Items] Window Cleaner: 1 (Min: 2)
+  [Cleaning Items] Hand Towel: 4 (Min: 5)
+  [Cleaning Items] Harpic: 2.4 (Min: 3)
+  [Cleaning Items] Tissue Toilet paper: 24 (Min: 40)
+  [Cleaning Items] Tissue Toilet paper: 24 (Min: 40)

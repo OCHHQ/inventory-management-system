@@ -1,0 +1,23 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Excel backups
+backups/
+*_backup_*.xlsx
+
+# Sensitive data - DON'T upload your real inventory data!
+data/inventory_tracker.xlsx
+inventory_tracker.xlsx
+
+# Exports
+exports/
+*.csv
+
+# OS files
+.DS_Store
+Thumbs.db

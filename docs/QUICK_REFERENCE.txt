@@ -1,0 +1,196 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    INVENTORY SYSTEM - QUICK REFERENCE                        ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 📊 EXCEL FORMULAS CHEAT SHEET                                                │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────┬────────────────────┬─────────────────────────────────┐
+│ Formula             │ Example            │ What it does                    │
+├─────────────────────┼────────────────────┼─────────────────────────────────┤
+│ =B6*D6              │ =B6*D6             │ Multiply quantity × price       │
+│ =SUM(E6:E18)        │ =SUM(E6:E18)       │ Add all values in range         │
+│ =IF(B6<F6,"X","Y")  │ =IF(B6<F6,"LOW","") │ Check if condition is true     │
+│ =COUNTIF(G:G,"X")   │ =COUNTIF(G:G,"OK") │ Count cells matching "X"        │
+│ ='Sheet'!A1         │ ='Cashier Items'!E20│ Reference cell from other sheet │
+│ =AVERAGE(B6:B20)    │ =AVERAGE(B6:B20)   │ Calculate average               │
+│ =MAX(B:B)           │ =MAX(B:B)          │ Find maximum value              │
+│ =MIN(B:B)           │ =MIN(B:B)          │ Find minimum value              │
+└─────────────────────┴────────────────────┴─────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 🐍 PYTHON COMMANDS CHEAT SHEET                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+# SETUP
+pip install openpyxl pandas --break-system-packages
+
+# INITIALIZE
+from inventory_automation import InventoryManager
+manager = InventoryManager('inventory_tracker.xlsx')
+
+# ADD ITEM
+manager.add_item('Cashier Items', 'Pencil', 50, 'pic', 20, 10)
+#                sheet_name       item_name  qty unit price reorder
+
+# UPDATE QUANTITY
+manager.update_quantity('Cashier Items', 'Marker', 30)
+#                        sheet_name       item_name  new_qty
+
+# UPDATE PRICE
+manager.update_price('Cleaning Items', 'Vim', 500)
+#                     sheet_name        item_name  new_price
+
+# GET LOW STOCK ITEMS
+reorder_df = manager.get_items_to_reorder()
+print(reorder_df)
+
+# GENERATE REPORT
+manager.generate_report('my_report.txt')
+
+# EXPORT TO CSV
+manager.export_to_csv('exports')
+
+# SAVE CHANGES (IMPORTANT!)
+manager.save()
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 🎯 COMMON TASKS                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+TASK 1: Add multiple items at once
+────────────────────────────────────
+items = [
+    ('Pencil', 50, 'pic', 20, 10),
+    ('Eraser', 30, 'pic', 10, 5),
+]
+
+for name, qty, unit, price, reorder in items:
+    manager.add_item('Cashier Items', name, qty, unit, price, reorder)
+
+manager.save()
+
+
+TASK 2: Check which items are low
+──────────────────────────────────
+low_stock = manager.get_items_to_reorder()
+
+for _, row in low_stock.iterrows():
+    print(f"⚠️ {row['Item']}: Only {row['Current Qty']} left!")
+
+
+TASK 3: Bulk price update (20% increase)
+─────────────────────────────────────────
+import pandas as pd
+
+df = pd.read_excel('inventory_tracker.xlsx', sheet_name='Cashier Items', skiprows=4)
+
+for _, row in df.iterrows():
+    if pd.notna(row['Unit Price (₦)']):
+        old_price = row['Unit Price (₦)']
+        new_price = old_price * 1.20
+        manager.update_price('Cashier Items', row['Item Name'], new_price)
+
+manager.save()
+
+
+TASK 4: Export for specific date
+─────────────────────────────────
+from datetime import datetime
+
+today = datetime.now().strftime('%Y-%m-%d')
+manager.generate_report(f'report_{today}.txt')
+manager.export_to_csv(f'exports_{today}')
+
+
+TASK 5: Find most expensive items
+──────────────────────────────────
+df = pd.read_excel('inventory_tracker.xlsx', sheet_name='Cashier Items', skiprows=4)
+top_5 = df.nlargest(5, 'Total Cost (₦)')
+print(top_5[['Item Name', 'Total Cost (₦)']])
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ⚡ AUTOMATION SCRIPTS                                                        │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+DAILY CHECK (save as daily_check.py)
+─────────────────────────────────────
+from inventory_automation import InventoryManager
+from datetime import datetime
+
+manager = InventoryManager('inventory_tracker.xlsx')
+reorder = manager.get_items_to_reorder()
+
+if not reorder.empty:
+    print("⚠️ LOW STOCK ALERT!")
+    print(reorder)
+    manager.generate_report(f'alert_{datetime.now().strftime("%Y%m%d")}.txt')
+
+Run daily: python daily_check.py
+
+
+MONTHLY REPORT (save as monthly_report.py)
+───────────────────────────────────────────
+from inventory_automation import InventoryManager
+from datetime import datetime
+
+manager = InventoryManager('inventory_tracker.xlsx')
+month = datetime.now().strftime('%B_%Y')
+
+manager.generate_report(f'monthly_report_{month}.txt')
+manager.export_to_csv(f'backup_{month}')
+
+print(f"✅ Monthly report generated for {month}")
+
+Run monthly: python monthly_report.py
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 🔍 TROUBLESHOOTING                                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+PROBLEM: "ModuleNotFoundError: No module named 'openpyxl'"
+SOLUTION: pip install openpyxl pandas --break-system-packages
+
+PROBLEM: Excel shows #DIV/0! error
+SOLUTION: Some unit prices are 0. Enter a price for those items.
+
+PROBLEM: "Item not found"
+SOLUTION: Check spelling - item names are case-sensitive.
+
+PROBLEM: Changes not saving
+SOLUTION: Always call manager.save() after making changes!
+
+PROBLEM: Excel file won't open
+SOLUTION: Make sure Excel file is closed before running Python scripts.
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 💡 PRO TIPS                                                                  │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+✓ Always backup your Excel file before running automation
+✓ Use descriptive item names for easier searching
+✓ Set realistic reorder levels based on usage patterns
+✓ Update prices regularly to keep costs accurate
+✓ Export to CSV weekly for data backup
+✓ Use blue text for inputs, black for formulas (Excel standard)
+✓ Test scripts on a copy of the file first
+✓ Keep quantity units consistent within categories
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 📁 FILE LOCATIONS                                                            │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+inventory_tracker.xlsx       → Main Excel file
+inventory_automation.py      → Python automation module
+inventory_tracker.py         → Script to create fresh Excel file
+README.md                    → Full documentation
+QUICK_REFERENCE.txt          → This file
+
+Generated Reports:           → inventory_report.txt
+CSV Exports:                 → exports/cashier_items.csv
+                              → exports/cleaning_items.csv
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                           END OF QUICK REFERENCE                             ║
+╚══════════════════════════════════════════════════════════════════════════════╝
